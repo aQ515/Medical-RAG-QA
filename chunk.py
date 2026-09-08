@@ -1,14 +1,21 @@
 """文本切分"""
 
 def split_text(text, size=200, overlap=50):
-    """按固定长度切分，段之间留一点重叠"""
+    """按长度切分，尽量在句号处断，段之间留一点重叠"""
     chunks = []
     start = 0
     n = len(text)
     while start < n:
         end = start + size
+        if end >= n:
+            chunks.append(text[start:n])
+            break
+        # 在end前面找句号，不然句子经常被切成两半
+        pos = text.rfind('。', start, end)
+        if pos > start + size // 2:
+            end = pos + 1
         chunks.append(text[start:end])
-        # 下一段往前退overlap，避免刚好把一句话切断
+        # 下一段往前退overlap
         start = end - overlap
         if start <= 0:
             break
