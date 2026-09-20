@@ -16,9 +16,7 @@ python eval.py
 
 生成答案那步要配一个兼容OpenAI接口的大模型，用环境变量设置：
 
-- OPENAI_API_KEY，必填
-- OPENAI_BASE_URL，用国内的模型时填
-- LLM_MODEL，不填默认是deepseek-chat
+OPENAI_API_KEY是必填的，用国内的模型再填OPENAI_BASE_URL，LLM_MODEL不填默认deepseek-chat。
 
 ## 文件
 
