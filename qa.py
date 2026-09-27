@@ -16,9 +16,14 @@ def build_pipeline(datapath='data'):
     return store
 
 
+def search_only(store, query, topk=3):
+    """只做检索，不调大模型"""
+    qvec = embedding.encode_one(query)
+    return vector_store.search(store, qvec, topk)
+
+
 def ask(store, query, topk=3):
     """问一句，返回答案和用到的片段"""
-    qvec = embedding.encode_one(query)
-    hits = vector_store.search(store, qvec, topk)
+    hits = search_only(store, query, topk)
     ans = generator.answer(query, hits)
     return ans, hits
